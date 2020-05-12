@@ -25,6 +25,22 @@ def get_related_titles(movie_lst):
             if movie not in final:
                 final.append(movie)
     return final
+    
+def get_movie_data(title):
+    baseurl = "http://www.omdbapi.com/"
+    query_param ={}
+    query_param['t'] = title
+    query_param['r'] = "json"
+    this_page_cache = requests_with_caching.get(baseurl, params=query_param)
+    return json.loads(this_page_cache.text)
+    
+def get_movie_rating(title):
+    rating = 0
+    if 'Rotten Tomatoes' in title['Ratings'][1].values():
+        rating = int(title['Ratings'][1]['Value'][:2])
+    return (rating)
+    
+
 
     
     
