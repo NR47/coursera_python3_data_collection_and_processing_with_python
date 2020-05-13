@@ -37,8 +37,19 @@ def get_movie_data(title):
 def get_movie_rating(title):
     rating = 0
     if 'Rotten Tomatoes' in title['Ratings'][1].values():
-        rating = int(title['Ratings'][1]['Value'][:2])
+        rating = int(title['Ratings'][1]['Value'][:-1])
     return (rating)
+
+
+def get_sorted_recommendations(movie_lst):
+    alternatives = get_related_titles(movie_lst)
+    movie_dict ={}
+    for movie in alternatives:
+        movie_dict[movie] = 0
+    key_list = movie_dict.keys()
+    for key in key_list:
+        movie_dict[key] = get_movie_rating(get_movie_data(key))      
+    return ([i[0] for i in sorted(movie_dict.items(), key=lambda item: (item[1], item[0]), reverse=True)])
     
 
 
