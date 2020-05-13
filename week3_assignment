@@ -1,5 +1,3 @@
-#Complete Project Code
-
 import requests_with_caching
 import json
 
@@ -50,8 +48,6 @@ def get_sorted_recommendations(movie_lst):
     for key in key_list:
         movie_dict[key] = get_movie_rating(get_movie_data(key))      
     return ([i[0] for i in sorted(movie_dict.items(), key=lambda item: (item[1], item[0]), reverse=True)])
-    
-
 
     
     
